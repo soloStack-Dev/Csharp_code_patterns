@@ -1,0 +1,14 @@
+C:\drive\ecm\CSharpPatterns\Csharp\bin\Debug\net10.0\Csharp.exe
+C:\drive\ecm\CSharpPatterns\Csharp\bin\Debug\net10.0\Csharp.deps.json
+C:\drive\ecm\CSharpPatterns\Csharp\bin\Debug\net10.0\Csharp.runtimeconfig.json
+C:\drive\ecm\CSharpPatterns\Csharp\bin\Debug\net10.0\Csharp.dll
+C:\drive\ecm\CSharpPatterns\Csharp\bin\Debug\net10.0\Csharp.pdb
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.AssemblyInfoInputs.cache
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.AssemblyInfo.cs
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.csproj.CoreCompileInputs.cache
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.dll
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\refint\Csharp.dll
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.pdb
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\Csharp.genruntimeconfig.cache
+C:\drive\ecm\CSharpPatterns\Csharp\obj\Debug\net10.0\ref\Csharp.dll
