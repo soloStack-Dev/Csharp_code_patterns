@@ -23,5 +23,9 @@ class tryCatch
         {
             Console.WriteLine("----[Error: Division by zero is not allowed.]----");
         }
+        finally
+        {
+            Console.WriteLine("----[Program continued.]----");
+        }
     }
 }

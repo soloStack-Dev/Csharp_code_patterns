@@ -7,7 +7,7 @@ class Conditional
         Console.WriteLine("----Conditional----");
 
         Console.WriteLine("Enter a weather condition (sunny, cloudy): ");
-        string input;
+        string? input;
         input = Console.ReadLine();
 
         if (input == "sunny")

@@ -22,3 +22,4 @@ public class FileLogger : ILogger
         Console.WriteLine($"[File] {message}");
     }
 }
+
