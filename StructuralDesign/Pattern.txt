@@ -1,0 +1,20 @@
+STRUCTURAL DESIGN PATTERNS
+
+1. Facade Pattern
+"Home Theater Remote"
+Real-world: A home theater has 10 devices: TV, soundbar, Blu-ray, streaming box, lights, curtains, AC. 
+To watch a movie, you'd need to: turn on TV → set input to HDMI1 → turn on soundbar → set to movie mode → 
+dim lights → close curtains → turn on Blu-ray → insert disc... Exhausting!
+A Facade provides one button: "Watch Movie" that handles everything.
+
+2. Decorator Pattern
+"Coffee Shop Add-ons"
+Real-world: You order a coffee. Then you add milk (+$0.50), 
+then sugar (+$0.25), then whipped cream (+$0.75). Each add-on wraps the previous drink, 
+adding behavior (cost, description) without changing the original coffee class.
+
+3. Adapter Pattern
+"Universal Power Plug Converter"
+Real-world: You have a European laptop charger (round pins) but you're in the USA (flat pins). 
+You can't change the laptop or the wall socket. Instead, you use a plug adapter — it looks like a USA plug to the socket, 
+but connects to your European charger.

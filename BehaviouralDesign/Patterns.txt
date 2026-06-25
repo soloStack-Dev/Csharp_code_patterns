@@ -1,0 +1,19 @@
+BEHAVIOURAL DESIGN PATTERNS
+
+1. Observer Pattern
+"Hospital Patient Monitor"
+Real-world: A patient's heart rate monitor is watched by multiple systems: the nurse station display, 
+the doctor's pager, the ICU alarm system, and the family notification app. When heart rate spikes, 
+ALL observers are notified automatically.
+
+2. State Pattern
+"Traffic Light System"
+Real-world: A traffic light cycles through Green → Yellow → Red → Green. 
+Each state knows: (1) what color to display, (2) how long to stay, (3) what the next state is. 
+The light itself just delegates to the current state.
+
+3. Strategy Pattern
+"Payment Methods at Checkout"
+Real-world: A shopping cart needs to accept Credit Card, PayPal, or Crypto. 
+Each payment method has different validation, processing, and fee calculation. 
+The cart shouldn't care which method is used — it just calls "pay."
