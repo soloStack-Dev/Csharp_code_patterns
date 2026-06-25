@@ -1,0 +1,34 @@
+CREATION DESIGN PATTERNS
+
+1. Singleton Pattern
+"One CEO, One Company"
+Real-world: A hospital has one central patient database. Every doctor, nurse,
+and receptionist must access the same database — not copies, not different instances.
+
+2. Factory Pattern
+"One Menu, Multiple Chefs"
+Real-world: A restaurant has a single order system (the factory). 
+You order "Burger" — the kitchen decides whether to make a CheeseBurger, 
+VeggieBurger, or ChickenBurger based on your choice. You don't care which chef makes it.
+
+3. Abstract Factory Pattern
+"Restaurant Chain, Different Regional Styles"
+Real-world: A fast-food chain operates in USA and India. Both sell "Meal Combos" (burger + drink + fries), but ingredients differ:
+USA: Beef burger, Coke, regular fries
+India: Paneer burger, Thums Up, masala fries
+The abstract factory ensures each region creates a consistent family of products.
+
+4. Builder Pattern
+"Custom Pizza Order"
+Real-world: At a pizza shop, you build your order step by step:
+Choose crust (thin/thick/stuffed)
+Choose sauce (tomato/bbq/white)
+Add toppings (pepperoni, mushrooms, olives...)
+Add extras (cheese burst, extra spicy)
+The builder lets you construct complex objects step by step without a massive constructor.
+
+5. Prototype Pattern
+"Copy a Medical Report Template"
+Real-world: A hospital has standard report templates (blood test, X-ray, MRI). 
+Instead of creating each from scratch, the doctor clones a template and fills in 
+patient-specific details. The template itself stays unchanged.

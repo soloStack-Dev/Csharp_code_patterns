@@ -2,67 +2,78 @@ using static System.Console;
 
 namespace CreationalDesign;
 
-public class Product
+public class Pizza
 {
-    public string PartA {   get; set; } = string.Empty;
-    public string PartB {   get; set; } = string.Empty;
-}
+    public string Crust { get; set; } = string.Empty;
+    public string Sauce { get; set; } = string.Empty;
+    public List<string> Toppings { get; set; } = new();
+    public bool IsExtraCheese { get; set; } = false;
+    public bool IsSpicy { get; set; } = false;
 
-public interface IBuilder
-{
-    IBuilder BuildPartA();
-    IBuilder BuildPartB();
-    Product GetProduct();
-}
-
-public class ConcreteBuilder : IBuilder
-{
-    public Product _product = new();
-
-    public IBuilder BuildPartA()
+    public void Display()
     {
-        _product.PartA = "Part A";
+        Console.WriteLine($"🍕 Pizza: {Crust} crust, {Sauce} sauce");
+        Console.WriteLine($"Toppings: {string.Join(", ", Toppings)}");
+        Console.WriteLine($"   Extras: {(IsExtraCheese ? "Extra Cheese" : "")} {(IsSpicy ? "Spicy" : "")}");
+    }
+}
+
+public class PizzaBuilder
+{
+    private readonly Pizza _pizza = new();
+
+    public PizzaBuilder SetCrust(string crust)
+    {
+        _pizza.Crust = crust;
         return this;
     }
 
-    public IBuilder BuildPartB()
+    public PizzaBuilder SetSauce(string sauce)
     {
-        _product.PartB = "Part B";
+        _pizza.Sauce = sauce;
         return this;
     }
 
-    public Product GetProduct()
+    public PizzaBuilder AddTopping(string topping)
     {
-        return _product;
+        _pizza.Toppings.Add(topping);
+        return this;
     }
-}
 
-public class Director
+    public PizzaBuilder AddExtraCheese()
+    {
+        _pizza.IsExtraCheese = true;
+        return this;
+    }
+
+    public PizzaBuilder MakeSpicy()
+    {
+        _pizza.IsSpicy = true;
+        return this;
+    }
+
+    public Pizza Build()
+    {
+        return _pizza;
+    }
+
+    public void OrderPizza()
 {
-    private readonly IBuilder _builder;
+    var myPizza = new PizzaBuilder()
+        .SetCrust("Stuffed")
+        .SetSauce("BBQ")
+        .AddTopping("Pepperoni")
+        .AddTopping("Mushrooms")
+        .AddTopping("Olives")
+        .AddExtraCheese()
+        .MakeSpicy()
+        .Build();
 
-    public Director(IBuilder builder)
-    {
-        _builder = builder;
+    myPizza.Display();
+    
     }
 
-    public void Construct()
-    {
-        _builder.BuildPartA();
-        _builder.BuildPartB();
-    }
-}
+    
 
-public class Builder
-{
-    static void Main()
-    {
-        var builder = new ConcreteBuilder();
-        
-        var director = new Director(builder);
-        director.Construct();
-
-        var product = builder.GetProduct();
-        WriteLine($"Product Parts: {product.PartA}, {product.PartB}");
-    }
+    
 }

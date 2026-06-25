@@ -1,78 +1,82 @@
-namespace CreationalDesign
+using System;
+
+namespace CreationalDesign;
+
+public class Factory
 {
-    public class Factory
+    static void Main()
     {
-        static void Main(string[] args)
-        {
-            EmailNotification emailNotification = new EmailNotification();
-            emailNotification.Send();
-
-            INotification notification = NotificationFactory.CreateNotification("Email");
-            notification.Sends();
-        }
-    }
-
-
-//without factory pattern
-public class EmailNotification
-{
-    public void Send()
-    {
-        Console.WriteLine("Sending email notification");
+        OrderSystem orderSystem = new OrderSystem();
+        orderSystem.PlaceOrder("Chicken");
     }
 }
 
-//with factory pattern
-public interface INotification
+//The Product
+public interface IBurger
+{
+    string GetDescription();
+    decimal GetPrice();
+}
+
+public class CheeseBurger : IBurger
+{
+    public string GetDescription()
     {
-        void Sends();
+        return "🍔 Cheese Burger with beef patty";
     }
 
-    public class EmailNotifications : INotification
+    public decimal GetPrice()
     {
-        public void Sends()
+        return 8.99m;
+    }
+}
+
+public class VeggieBurger : IBurger
+{
+    public string GetDescription()
+    {
+        return "🥬 Veggie Burger with black bean patty";
+    }
+
+    public decimal GetPrice()
+    {
+        return 9.49m;
+    }
+}
+
+public class ChickenBurger : IBurger
+{
+    public string GetDescription()
+    {
+        return "🐔 Chicken Burger with grilled chicken";
+    }
+
+    public decimal GetPrice()
+    {
+        return 9.99m;
+    }
+}
+
+public class BurgerFactory
+{
+    public static IBurger CreateBurger(string type)
+    {
+        return type.ToLower() switch
         {
-            Console.WriteLine("Sending email notification");
-        }
+            "cheese" => new CheeseBurger(),
+            "veggie" => new VeggieBurger(),
+            "chicken" => new ChickenBurger(),
+            _ => throw new ArgumentException($"Invalid burger type: {type}"),
+        };
     }
+}
 
-    public class SmsNotifications : INotification
+public class OrderSystem
+{
+    public void PlaceOrder(string burgerType)
     {
-        public void Sends()
-        {
-            Console.WriteLine("Sending sms notification");
-        }
-    }
+        IBurger burger = BurgerFactory.CreateBurger(burgerType);
 
-    public class WhatsAppNotifications : INotification
-    {
-        public void Sends()
-        {
-            Console.WriteLine("Sending whatsapp notification");
-        }
+        Console.WriteLine($"Order placed: {burger.GetDescription()} for {burger.GetPrice()}");
     }
-
-    public class NotificationFactory
-    {
-        public static INotification CreateNotification(string notificationType)
-        {
-            if(notificationType == "Email")
-            {
-                return new EmailNotifications();
-            }
-            else if(notificationType == "Sms")
-            {
-                return new SmsNotifications();
-            }
-            else if(notificationType == "WhatsApp")
-            {
-                return new WhatsAppNotifications();
-            }
-            else
-            {
-                throw new ArgumentException("Invalid notification type");
-            }
-        }
-    }
-
 }

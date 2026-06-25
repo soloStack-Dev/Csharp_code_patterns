@@ -2,47 +2,104 @@ using static System.Console;
 
 namespace CreationalDesign;
 
-public interface IPrototype<T>
+//Standard Report Template
+public interface IReportPrototype
 {
-    T Clone();
+    //cloning the prototype
+    IReportPrototype Clone();
 }
 
-public class Warrior : IPrototype<Warrior>
+//create new report templates with existing templates as prototypes
+public class MedicalReport : IReportPrototype
 {
-    public string Name  {  get; set;  }
-    public int Health {  get; set; }
-    public int AttackPower {   get; set;  }
+    public string ReportType { get; set; } = string.Empty;
+    public string HospitalName { get; set; } = string.Empty;
+    public string HeaderLogo { get; set; } = string.Empty;
+    public List<string> StandardSections { get; set; } = new();
 
-    public Warrior(string name, int health, int attackPower)
+
+    public string PatientName { get; set; } = string.Empty;
+    public DateTime Date { get; set; } = DateTime.Now;
+    public string Results { get; set; } = string.Empty;
+
+
+    public MedicalReport(string type, string hospital)
     {
-        Name = name;
-        Health = health;
-        AttackPower = attackPower;
+        ReportType = type;
+        HospitalName = hospital;
+        HeaderLogo = "🏥 City Hospital Logo";
+        
+        
+        StandardSections = type switch
+        {
+            "Blood Test" => new() { "CBC", "Lipid Panel", "Liver Function" },
+            "X-Ray" => new() { "Chest View", "Spine View" },
+            _ => new()
+        };
     }
 
-    public override string ToString() 
-        => $"Name: {Name}, Health:{Health}, AttackPower: {AttackPower}";
 
-    public Warrior Clone() => (Warrior)MemberwiseClone();
-
-}
-
-public class Prototype
-{
-    public static void Main(string[] args)
+    public IReportPrototype Clone()
     {
-        // Create an instance of the Warrior prototype
-        var loki = new Warrior("Loki", 100, 20);
+        
+        return new MedicalReport(ReportType, HospitalName)
+        {
+            HeaderLogo = this.HeaderLogo,
+            StandardSections = new List<string>(this.StandardSections)
+            
+        };
+    }
 
-        // Clone the Loki warrior to create
-        // a new warrior named Thor
-        var thor = loki.Clone();
-        thor.Name = "Thor";
-        thor.Health = 120;
+    public void Display()
+    {
+        Console.WriteLine($"=== {ReportType} ===");
+        Console.WriteLine($"Hospital: {HospitalName} | {HeaderLogo}");
+        Console.WriteLine($"Patient: {PatientName} | Date: {Date:d}");
+        Console.WriteLine($"Sections: {string.Join(", ", StandardSections)}");
+        Console.WriteLine($"Results: {Results}");
+    }
 
-        // Now we have two different warrior objects with
-        // similar properties but with some differences
-        WriteLine(loki);
-        WriteLine(thor);
+    public class ReportTemplateRegistry
+{
+    private readonly Dictionary<string, MedicalReport> _templates = new();
+
+    public ReportTemplateRegistry()
+    {
+        // One-time setup: create base templates
+        _templates["Blood Test"] = new MedicalReport("Blood Test", "City Hospital");
+        _templates["X-Ray"] = new MedicalReport("X-Ray", "City Hospital");
+    }
+
+    public MedicalReport CreateReport(string type)
+    {
+        if (!_templates.TryGetValue(type, out var template))
+            throw new ArgumentException("Unknown report type");
+
+        return (MedicalReport)template.Clone();  // Fresh copy, template untouched
     }
 }
+
+// Usage: Doctor gets a fresh copy, fills patient details
+public static void GeneratePatientReport()
+{
+        var registry = new ReportTemplateRegistry();
+
+        var report1 = registry.CreateReport("Blood Test");
+        report1.PatientName = "John Doe";
+        report1.Date = DateTime.Now;
+        report1.Results = "All normal";
+        report1.Display();
+
+        var report2 = registry.CreateReport("Blood Test");
+        report2.PatientName = "Jane Smith";
+        report2.Date = DateTime.Now;
+        report2.Results = "High cholesterol";
+        report2.Display();
+    }
+    
+    static void Main()
+    {
+        GeneratePatientReport();
+    }
+}
+

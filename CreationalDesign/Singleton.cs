@@ -4,36 +4,50 @@ namespace CreationalDesign
 {
     public class Singleton
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Logger logger1 = Logger.GetInstance();
-            Logger logger2 = Logger.GetInstance();
+            DoctorPortal doctorPortal = new DoctorPortal();
+            doctorPortal.ViewPatient(123);
 
-            Console.WriteLine(logger1 == logger2 ? "two obj use same instance" : "two obj use diff instance");
-
-
-            //singleton pattern
-            //help to create only one instance of a class to everywhere use
-            //many object use same instance of a class
-        }
-    }
-
-    public class Logger
-    {
-        private static Logger? _instance;
-
-        private Logger()
-        {
-            Console.WriteLine("Logger was created");
-        }
-
-        public static Logger GetInstance()
-        {
-            if (_instance == null)
-            {
-                _instance = new Logger();
-            }
-            return _instance;
+            ReceptionDesk receptionDesk = new ReceptionDesk();
+            receptionDesk.CheckInPatient(456);
         }
     }
 }
+
+public sealed class HospitalDatabase
+{
+    private static readonly Lazy<HospitalDatabase> _instance = new Lazy<HospitalDatabase>(() => new HospitalDatabase());
+
+    public static HospitalDatabase Instance => _instance.Value;
+
+    private HospitalDatabase()
+    {
+        Console.WriteLine("Hospital Database initialized (only once)");
+    }
+
+    public void GetPatientRecord(int patientId)
+    {
+        Console.WriteLine($"Retrieving patient record with ID: {patientId}");
+    }
+}
+
+//Doctor access the HospitalDatabase
+public class DoctorPortal
+{
+    public void ViewPatient(int id)
+    {
+        HospitalDatabase.Instance.GetPatientRecord(id);
+    }
+}
+
+//Receptionist access the Same instance (HospitalDatabase)
+public class ReceptionDesk
+{
+    public void CheckInPatient(int id)
+    {
+        HospitalDatabase.Instance.GetPatientRecord(id);
+    }
+}
+
+/* multiple person access only one instance of the database */
